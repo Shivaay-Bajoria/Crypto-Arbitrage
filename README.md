@@ -6,6 +6,9 @@ A low-latency, asynchronous trading system that detects and executes arbitrage o
 This bot monitors the **BTC/USDT** pair across 4 liquidity sources (Binance, Kraken, KuCoin, Bybit) to identify price inefficiencies. It utilizes a permutation-based algorithm to calculate spreads between every possible exchange pair ($N \times (N-1)$ combinations) and executes trades when profit thresholds exceed transaction fees.
 
 ## 🛠️ Technical Architecture
+
+![System Architecture Diagram](architecture_diagram.png)
+
 * **Concurrency:** Built with Python `asyncio` and `ccxt` to fetch order book data from 4 exchanges simultaneously, reducing network latency by ~70% compared to synchronous requests.
 * **Algorithmic Logic:** Implements `itertools.permutations` to scan market data with $O(N^2)$ complexity, instantly identifying the highest-spread pair (e.g., Buy Kraken $\to$ Sell Binance).
 * **Risk Engine:** Features a built-in profitability guardrail that filters opportunities below the **0.2%** break-even threshold (covering Maker/Taker fees).
